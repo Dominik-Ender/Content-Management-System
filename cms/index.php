@@ -5,6 +5,11 @@ include('includes/database.php');
 include('includes/functions.php');
 // secure();
 
+if (isset($_POST['signup'])) {
+    header('Location: sign_up.php');
+    die();
+}
+
 if (isset($_SESSION['id'])) {
     header('Location: dashboard.php');
     die();
@@ -39,6 +44,8 @@ if (isset($_POST['email'])) {
         echo 'Could not prepare statement!';
     }
 }
+
+
 ?>
 
 <div class="container mt-5">
@@ -58,7 +65,10 @@ if (isset($_POST['email'])) {
                 </div>
 
                 <!-- Submit button -->
-                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                 <div class="d-flex gap-2">
+                    <button type="submit" name="signin" class="btn btn-primary">Sign in</button>
+                    <button type="submit" name="signup" class="btn btn-secondary">Sign up</button>
+                </div>
             </form>
         </div>
     </div>
