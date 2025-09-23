@@ -21,8 +21,6 @@ if ($stm = $connect->prepare('SELECT 1 from ADMIN where id = ?')) {
 
 if ($isAdmin && isset($_GET['delete'])) {
     if ($stm = $connect->prepare('DELETE FROM users WHERE id = ?')) {
-        // $hashed = SHA1($_POST['password']);
-        // $stm -> bind_param('ss', $_POST['email'], $hashed);
         $stm->bind_param('i', $_GET['delete']);
         $stm->execute();
 

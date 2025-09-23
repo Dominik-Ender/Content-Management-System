@@ -36,6 +36,12 @@
                         <a class="nav-link" href="/cms/dashboard.php">Dashboard</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="/cms/users.php">User Management</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cms/posts.php">Post Management</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="/cms/logout.php">Logout</a>
                     </li>
                 </ul>

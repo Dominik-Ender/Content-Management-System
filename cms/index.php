@@ -3,7 +3,7 @@
 include('includes/config.php');
 include('includes/database.php');
 include('includes/functions.php');
-// secure();
+secure();
 
 if (isset($_POST['signup'])) {
     header('Location: sign_up.php');
@@ -19,8 +19,6 @@ include('includes/header.php');
 
 if (isset($_POST['email'])) {
     if ($stm = $connect->prepare('SELECT * FROM users WHERE email = ? AND password = ? AND active = 1')) {
-        // $hashed = SHA1($_POST['password']);
-        // $stm -> bind_param('ss', $_POST['email'], $hashed);
         $stm->bind_param('ss', $_POST['email'], $_POST['password']);
         $stm->execute();
 
@@ -32,9 +30,6 @@ if (isset($_POST['email'])) {
             $_SESSION['email'] = $user['email'];
             $_SESSION['username'] = $user['username'];
 
-            var_dump($result);
-
-            set_message("You have succesfully logged in " . $_SESSION['username']);
             header('Location: dashboard.php');
             die();
         }
@@ -45,27 +40,25 @@ if (isset($_POST['email'])) {
     }
 }
 
-
 ?>
-
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-7">
             <form method="post">
                 <!-- Email input -->
-                <div class="form-outline mb-4">
+                <div class="form-group mb-4">
                     <label class="form-label" for="email">Email address</label>
                     <input type="email" id="email" name="email" class="form-control" />
                 </div>
 
                 <!-- Password input -->
-                <div class="form-outline mb-4">
+                <div class="form-group mb-4">
                     <label class="form-label" for="password">Password</label>
                     <input type="password" id="password" name="password" class="form-control" />
                 </div>
 
                 <!-- Submit button -->
-                 <div class="d-flex gap-2">
+                <div class="d-flex gap-2">
                     <button type="submit" name="signin" class="btn btn-primary">Sign in</button>
                     <button type="submit" name="signup" class="btn btn-secondary">Sign up</button>
                 </div>
@@ -75,7 +68,5 @@ if (isset($_POST['email'])) {
 </div>
 
 <?php
-
 include('includes/footer.php');
-
 ?>

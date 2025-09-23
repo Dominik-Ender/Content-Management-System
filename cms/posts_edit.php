@@ -8,14 +8,11 @@ include('includes/header.php');
 
 if (isset($_POST['title'])) {
     if ($stm = $connect->prepare('UPDATE posts set title = ?, content = ?, date = ? WHERE ID = ?')) {
-        // $hashed = SHA1($_POST['password']);
-        // $stm -> bind_param('ss', $_POST['email'], $hashed);
         $stm->bind_param('sssi', $_POST['title'], $_POST['content'], $_POST['date'], $_GET['id']);
         $stm->execute();
 
         $stm->close();
 
-        set_message("A post " . $_GET['id'] . " has been updated");
         header('Location: posts.php');
         die();
     } else {
@@ -25,8 +22,6 @@ if (isset($_POST['title'])) {
 
 if (isset($_GET['id'])) {
     if ($stm = $connect->prepare('SELECT * FROM posts WHERE id = ?')) {
-        // $hashed = SHA1($_POST['password']);
-        // $stm -> bind_param('ss', $_POST['email'], $hashed);
         $stm->bind_param('i', $_GET['id']);
         $stm->execute();
 
@@ -41,19 +36,19 @@ if (isset($_GET['id'])) {
                         <h1 class="h1-display-h1">Edited post</h1>
                         <form method="post">
                             <!-- Title input -->
-                            <div class="form-outline mb-4">
+                            <div class="form-group mb-4">
                                 <label class="form-label" for="title">Title</label>
                                 <input type="text" id="title" name="title" class="form-control"
                                     value="<?php echo $post['title'] ?>" />
                             </div>
 
                             <!-- Content input -->
-                            <div class="form-outline mb-4">
+                            <div class="form-group mb-4">
                                 <textarea name="content" id="content"><?php echo $post['content'] ?></textarea>
                             </div>
 
                             <!-- Date select -->
-                            <div class="form-outline mb-4">
+                            <div class="form-group mb-4">
                                 <label class="form-label" for="date">Date</label>
                                 <input type="date" id="date" name="date" class="form-control" value="<?php echo $post['date'] ?>" />
                             </div>

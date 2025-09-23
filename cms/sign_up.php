@@ -3,7 +3,7 @@
 include('includes/config.php');
 include('includes/database.php');
 include('includes/functions.php');
-// secure();
+secure();
 
 $username = "";
 $email = "";
@@ -14,7 +14,6 @@ $usernameErr = "";
 $emailErr = "";
 $password1Err = "";
 $password2Err = "";
-
 
 if (isset($_SESSION['id'])) {
     header('Location: dashboard.php');
@@ -28,8 +27,6 @@ if (isset($_POST['signup'])) {
 
     if (empty($usernameErr) && empty($emailErr) && empty($password1Err) && empty($password2Err)) {
         if ($stm = $connect->prepare('INSERT INTO users (username, email, password, active) VALUES (?, ?, ?, 1)')) {
-            // $hashed = SHA1($_POST['password']);
-            // $stm -> bind_param('ss', $_POST['email'], $hashed);
             $stm->bind_param('sss', $_POST['username'], $_POST['email'], $_POST['password1']);
 
             if ($stm->execute()) {
@@ -37,9 +34,6 @@ if (isset($_POST['signup'])) {
                 $_SESSION['username'] = $_POST['username'];
                 $_SESSION['email'] = $_POST['email'];
 
-                var_dump($result);
-
-                set_message("You have succesfully signed up " . $_SESSION['username']);
                 header('Location: dashboard.php');
                 die();
             }
@@ -60,20 +54,12 @@ if (isset($_POST['title'])) {
     <div class="row justify-content-center">
         <div class="col-md-7">
             <form method="post" class="container" role="form"
-                action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"
-                autocomplete="off"
-                >
+                action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" autocomplete="off">
                 <!-- Username input -->
                 <div class="form-outline mb-4">
                     <label class="form-label" for="username">Username</label>
-                    <input 
-                        type="text" 
-                        id="username" 
-                        name="username" 
-                        class="form-control" 
-                        value="<?php echo htmlspecialchars($username); ?>" 
-                        autocomplete="off"
-                    />
+                    <input type="text" id="username" name="username" class="form-control"
+                        value="<?php echo htmlspecialchars($username); ?>" autocomplete="off" />
                     <span class="error"><?php echo $usernameErr; ?></span>
 
                 </div>
@@ -81,7 +67,8 @@ if (isset($_POST['title'])) {
                 <!-- Email input -->
                 <div class="form-outline mb-4">
                     <label class="form-label" for="email">Email address</label>
-                    <input type="email" id="email" name="email" class="form-control" value="<?php echo htmlspecialchars($email); ?>"  />
+                    <input type="email" id="email" name="email" class="form-control"
+                        value="<?php echo htmlspecialchars($email); ?>" />
                     <span class="error"><?php echo $emailErr; ?></span>
 
                 </div>

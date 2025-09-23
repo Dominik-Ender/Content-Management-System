@@ -11,8 +11,6 @@ include('includes/header.php');
     <div class="row justify-content-center">
         <div class="col-md-7">
             <h1 class="display-h1">Dashboard</h1>
-            <a href="/cms/users.php">Users management</a>
-            <a href="/cms/posts.php">Posts management</a>
         </div>
     </div>
 </div>
@@ -22,7 +20,6 @@ if ($stm = $connect->prepare('SELECT p.title, p.content, u.username FROM posts A
     $stm->execute();
 
     $result = $stm->get_result();
-
 
     if ($result->num_rows > 0) {
         ?>
