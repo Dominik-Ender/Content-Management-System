@@ -3,7 +3,7 @@
 include('includes/config.php');
 include('includes/database.php');
 include('includes/functions.php');
-secure();
+// secure();
 
 if (isset($_POST['signup'])) {
     header('Location: sign_up.php');
